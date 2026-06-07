@@ -1,0 +1,72 @@
+DEFAULT: &DEFAULT
+  black_list: [4,5,6]
+  num_gpus_total: 8
+  num_gpus_to_use: 1
+  verbose: 2
+  save_plot: False
+  val_interval: 1
+
+SUGRL: &FCECS
+  model_name: FCECS
+  <<: *DEFAULT
+
+FCECS-Cora: &FCECS-Base
+  <<: *FCECS
+  black_list: [4,5,6]
+  lr: 0.001
+  out_heads: 1
+  task_type: Node_Transductive
+  val_interval: 1
+  epochs: 1000
+  dim: 32
+  cfg : [512, 64]
+  w_loss1: 30
+  w_loss2: 10
+  w_loss3: 1
+  margin1: 0.8
+  margin2: 0.2
+  num_neg: 2
+  num1: 100
+  wd: 0.005
+  dropout: 0.4
+  weight_decay: 0.00005
+  global_centroids_num: 15
+  local_centroids_num: 30
+  centroids_freeze_epoch: 10
+  backbone: "clu"
+
+FCECS-Cora-clustering: &FCECS-Cora-clustering
+  <<: *FCECS-Base
+  seed: 1
+  split_num: 2
+  features_num: 1433
+
+FCECS-CiteSeer-clustering: &FCECS-CiteSeer-clustering
+  <<: *FCECS-Base
+  seed: 1
+  split_num: 2
+  features_num: 3703
+
+FCECS-PubMed-clustering: &FCECS-PubMed-clustering
+  <<: *FCECS-Base
+  seed: 1
+  split_num: 2
+  features_num: 500
+
+FCECS-BlogCatalog-clustering: &FCECS-BlogCatalog-clustering
+  <<: *FCECS-Base
+  seed: 1
+  split_num: 2
+  features_num: 8189
+
+FCECS-Physics-clustering: &FCECS-Physics-clustering
+  <<: *FCECS-Base
+  seed: 1
+  split_num: 2
+  features_num: 8415
+
+FCECS-CS-clustering: &FCECS-CS-clustering
+  <<: *FCECS-Base
+  seed: 1
+  split_num: 2
+  features_num: 6805
